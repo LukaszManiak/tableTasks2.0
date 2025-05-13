@@ -49,7 +49,7 @@ As a user you should be able to:
 
 ### Built with
 
-- React.js (createContext, useContext, useEffect, useReducer, useState)
+- React.js
 - TypeScript
 - TailwindCSS
 - HTML5
