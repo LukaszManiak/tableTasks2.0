@@ -4,6 +4,15 @@
 
 TableTasks is a feature-rich todo application that empowers users with a wide range of functionalities to manage their tasks efficiently. The application is designed to be user-friendly, allowing users to customize their task management experience seamlessly.
 
+## 🧠 Why This App?
+
+This project was created as a personal learning tool to solidify my understanding of modern frontend development practices. The main technologies used in this project include:
+
+- ✅ **TypeScript** – To improve type safety, catch errors earlier, and write more maintainable code.
+- ✅ **TanStack Router** – To explore a modern, type-safe, file-based routing solution for React apps.
+- ✅ **TanStack Query** – For efficient data fetching, caching, and syncing with server state.
+- ✅ **Tailwind CSS** – To rapidly build responsive and styled components with utility-first CSS.
+
 ## Goal
 
 TableTasks was developed with a singular focus: to empower individuals in effectively managing their tasks and projects. As a feature-rich todo application, it goes beyond the basic functionalities, aiming to provide a comprehensive solution for organizing and tracking tasks.
@@ -23,7 +32,7 @@ TableTasks was developed with a singular focus: to empower individuals in effect
 
 ### Links
 
-- Solution URL: [GitHub](https://github.com/LukaszManiak/TableTasks)
+- Solution URL: [GitHub]()
 
 ### The challenge
 
@@ -50,6 +59,10 @@ As a user you should be able to:
 
 - Frontend Mentor - [Lukasz Maniak](https://www.frontendmentor.io/profile/Mejniak)
 - GitHub- [Lukasz Maniak](https://github.com/LukaszManiak)
+
+### Old TableTask
+
+- Solution URL: [GitHub](https://github.com/LukaszManiak/TableTasks)
 
 ### Screenshot
 
