@@ -1,3 +1,3 @@
 export default function SideMenu() {
-  return <div>Sidemenu</div>;
+  return <div className="w-1/4 flex flex-col">Sidemenu</div>;
 }

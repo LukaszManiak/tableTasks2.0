@@ -32,13 +32,13 @@ export type SubTask = {
 
 function RootComponent() {
   return (
-    <>
+    <div className="flex h-screen p-8">
       <SideMenu />
-      <div>
+      <div className="flex flex-col w-3/4 justify-between">
         <HeadBar />
         <Outlet />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
