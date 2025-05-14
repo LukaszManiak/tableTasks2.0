@@ -1,3 +1,3 @@
 export default function SideMenu() {
-  return <div></div>;
+  return <div>Sidemenu</div>;
 }
