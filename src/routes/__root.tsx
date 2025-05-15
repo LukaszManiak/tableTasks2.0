@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
 import SideMenu from "../ui/SideMenu";
 import HeadBar from "../ui/HeadBar";

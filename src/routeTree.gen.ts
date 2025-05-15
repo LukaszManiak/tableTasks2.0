@@ -12,6 +12,12 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as TasksTaskIdRouteImport } from './routes/tasks/$taskId/route'
+import { Route as TableTableIdRouteImport } from './routes/table/$tableId/route'
+import { Route as TasksTaskIdIndexImport } from './routes/tasks/$taskId/index'
+import { Route as TableTableIdIndexImport } from './routes/table/$tableId/index'
+import { Route as TasksTaskIdEditImport } from './routes/tasks/$taskId/edit'
+import { Route as TableTableIdEditImport } from './routes/table/$tableId/edit'
 
 // Create/Update Routes
 
@@ -19,6 +25,42 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const TasksTaskIdRouteRoute = TasksTaskIdRouteImport.update({
+  id: '/tasks/$taskId',
+  path: '/tasks/$taskId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TableTableIdRouteRoute = TableTableIdRouteImport.update({
+  id: '/table/$tableId',
+  path: '/table/$tableId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TasksTaskIdIndexRoute = TasksTaskIdIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TasksTaskIdRouteRoute,
+} as any)
+
+const TableTableIdIndexRoute = TableTableIdIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TableTableIdRouteRoute,
+} as any)
+
+const TasksTaskIdEditRoute = TasksTaskIdEditImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => TasksTaskIdRouteRoute,
+} as any)
+
+const TableTableIdEditRoute = TableTableIdEditImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => TableTableIdRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -32,39 +74,147 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/table/$tableId': {
+      id: '/table/$tableId'
+      path: '/table/$tableId'
+      fullPath: '/table/$tableId'
+      preLoaderRoute: typeof TableTableIdRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/tasks/$taskId': {
+      id: '/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof TasksTaskIdRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/table/$tableId/edit': {
+      id: '/table/$tableId/edit'
+      path: '/edit'
+      fullPath: '/table/$tableId/edit'
+      preLoaderRoute: typeof TableTableIdEditImport
+      parentRoute: typeof TableTableIdRouteImport
+    }
+    '/tasks/$taskId/edit': {
+      id: '/tasks/$taskId/edit'
+      path: '/edit'
+      fullPath: '/tasks/$taskId/edit'
+      preLoaderRoute: typeof TasksTaskIdEditImport
+      parentRoute: typeof TasksTaskIdRouteImport
+    }
+    '/table/$tableId/': {
+      id: '/table/$tableId/'
+      path: '/'
+      fullPath: '/table/$tableId/'
+      preLoaderRoute: typeof TableTableIdIndexImport
+      parentRoute: typeof TableTableIdRouteImport
+    }
+    '/tasks/$taskId/': {
+      id: '/tasks/$taskId/'
+      path: '/'
+      fullPath: '/tasks/$taskId/'
+      preLoaderRoute: typeof TasksTaskIdIndexImport
+      parentRoute: typeof TasksTaskIdRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface TableTableIdRouteRouteChildren {
+  TableTableIdEditRoute: typeof TableTableIdEditRoute
+  TableTableIdIndexRoute: typeof TableTableIdIndexRoute
+}
+
+const TableTableIdRouteRouteChildren: TableTableIdRouteRouteChildren = {
+  TableTableIdEditRoute: TableTableIdEditRoute,
+  TableTableIdIndexRoute: TableTableIdIndexRoute,
+}
+
+const TableTableIdRouteRouteWithChildren =
+  TableTableIdRouteRoute._addFileChildren(TableTableIdRouteRouteChildren)
+
+interface TasksTaskIdRouteRouteChildren {
+  TasksTaskIdEditRoute: typeof TasksTaskIdEditRoute
+  TasksTaskIdIndexRoute: typeof TasksTaskIdIndexRoute
+}
+
+const TasksTaskIdRouteRouteChildren: TasksTaskIdRouteRouteChildren = {
+  TasksTaskIdEditRoute: TasksTaskIdEditRoute,
+  TasksTaskIdIndexRoute: TasksTaskIdIndexRoute,
+}
+
+const TasksTaskIdRouteRouteWithChildren =
+  TasksTaskIdRouteRoute._addFileChildren(TasksTaskIdRouteRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
+  '/tasks/$taskId': typeof TasksTaskIdRouteRouteWithChildren
+  '/table/$tableId/edit': typeof TableTableIdEditRoute
+  '/tasks/$taskId/edit': typeof TasksTaskIdEditRoute
+  '/table/$tableId/': typeof TableTableIdIndexRoute
+  '/tasks/$taskId/': typeof TasksTaskIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/table/$tableId/edit': typeof TableTableIdEditRoute
+  '/tasks/$taskId/edit': typeof TasksTaskIdEditRoute
+  '/table/$tableId': typeof TableTableIdIndexRoute
+  '/tasks/$taskId': typeof TasksTaskIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
+  '/tasks/$taskId': typeof TasksTaskIdRouteRouteWithChildren
+  '/table/$tableId/edit': typeof TableTableIdEditRoute
+  '/tasks/$taskId/edit': typeof TasksTaskIdEditRoute
+  '/table/$tableId/': typeof TableTableIdIndexRoute
+  '/tasks/$taskId/': typeof TasksTaskIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/table/$tableId'
+    | '/tasks/$taskId'
+    | '/table/$tableId/edit'
+    | '/tasks/$taskId/edit'
+    | '/table/$tableId/'
+    | '/tasks/$taskId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/table/$tableId/edit'
+    | '/tasks/$taskId/edit'
+    | '/table/$tableId'
+    | '/tasks/$taskId'
+  id:
+    | '__root__'
+    | '/'
+    | '/table/$tableId'
+    | '/tasks/$taskId'
+    | '/table/$tableId/edit'
+    | '/tasks/$taskId/edit'
+    | '/table/$tableId/'
+    | '/tasks/$taskId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TableTableIdRouteRoute: typeof TableTableIdRouteRouteWithChildren
+  TasksTaskIdRouteRoute: typeof TasksTaskIdRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TableTableIdRouteRoute: TableTableIdRouteRouteWithChildren,
+  TasksTaskIdRouteRoute: TasksTaskIdRouteRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +227,43 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/table/$tableId",
+        "/tasks/$taskId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/table/$tableId": {
+      "filePath": "table/$tableId/route.tsx",
+      "children": [
+        "/table/$tableId/edit",
+        "/table/$tableId/"
+      ]
+    },
+    "/tasks/$taskId": {
+      "filePath": "tasks/$taskId/route.tsx",
+      "children": [
+        "/tasks/$taskId/edit",
+        "/tasks/$taskId/"
+      ]
+    },
+    "/table/$tableId/edit": {
+      "filePath": "table/$tableId/edit.tsx",
+      "parent": "/table/$tableId"
+    },
+    "/tasks/$taskId/edit": {
+      "filePath": "tasks/$taskId/edit.tsx",
+      "parent": "/tasks/$taskId"
+    },
+    "/table/$tableId/": {
+      "filePath": "table/$tableId/index.tsx",
+      "parent": "/table/$tableId"
+    },
+    "/tasks/$taskId/": {
+      "filePath": "tasks/$taskId/index.tsx",
+      "parent": "/tasks/$taskId"
     }
   }
 }
