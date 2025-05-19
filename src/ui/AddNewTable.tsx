@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 type TableInputs = {
   title: string;
+  type: "table" | "archived";
 };
 
 export default function AddNewTable() {
@@ -41,7 +42,7 @@ export default function AddNewTable() {
             type="submit"
             className="bg-amber-300 font-bold tracking-wider hover:bg-amber-200 transition-all ease-in-out duration-200 cursor-pointer text-yellow-50 rounded-md p-4"
           >
-            ADD NOTE
+            ADD TABLE
           </button>
           <Link to="..">
             <button className="bg-orange-400 font-bold tracking-wider hover:bg-amber-200 transition-all ease-in-out duration-200 cursor-pointer text-yellow-50 rounded-md p-4">

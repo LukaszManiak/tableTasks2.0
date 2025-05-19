@@ -31,9 +31,9 @@ export type SubTask = {
 
 function RootComponent() {
   return (
-    <div className="flex h-screen p-8">
+    <div className="flex h-screen ">
       <SideMenu />
-      <div className="flex flex-col w-3/4 justify-between">
+      <div className="flex flex-col w-3/4 p-8 justify-between">
         <HeadBar />
         <Outlet />
         <Footer />

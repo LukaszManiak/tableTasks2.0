@@ -4,7 +4,7 @@ export default function Footer() {
       <p>© 2024 TableTask</p>
       <span>
         Made by{" "}
-        <a className="text-green-500" href="">
+        <a className="text-green-500" href="https://github.com/LukaszManiak">
           Łukasz Maniak
         </a>
       </span>{" "}
