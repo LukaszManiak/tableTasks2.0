@@ -1,12 +1,17 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useForm, SubmitHandler } from "react-hook-form";
+
+export const Route = createFileRoute("/table/addTable/")({
+  component: RouteComponent,
+});
 
 type TableInputs = {
   title: string;
   type: "table" | "archived";
 };
 
-export default function AddNewTable() {
+function RouteComponent() {
   const {
     register,
     handleSubmit,
@@ -18,13 +23,14 @@ export default function AddNewTable() {
 
   return (
     <div>
+      <h1 className="text-6xl font-bold mb-12">Create your table!</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-1/2 flex flex-col gap-y-8 p-12 rounded-3xl "
+        className="w-1/2 flex flex-col gap-y-8  rounded-3xl "
       >
-        <label className="text-3xl font-bold text-center">Title</label>
+        <label className="text-3xl font-bold ">Title</label>
         <input
-          className="border-2 rounded-full p-4"
+          className="border-2 rounded-lg p-4"
           {...register("title", {
             required: "Title is required",
             minLength: {
@@ -36,16 +42,16 @@ export default function AddNewTable() {
         />
         {errors.title && <p>{errors.title.message}</p>}
 
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex  gap-4">
           <button
             disabled={isSubmitting}
             type="submit"
-            className="bg-amber-300 font-bold tracking-wider hover:bg-amber-200 transition-all ease-in-out duration-200 cursor-pointer text-yellow-50 rounded-md p-4"
+            className="bg-green-300 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4"
           >
             ADD TABLE
           </button>
-          <Link to="..">
-            <button className="bg-orange-400 font-bold tracking-wider hover:bg-amber-200 transition-all ease-in-out duration-200 cursor-pointer text-yellow-50 rounded-md p-4">
+          <Link to="/">
+            <button className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4">
               CANCEL
             </button>
           </Link>

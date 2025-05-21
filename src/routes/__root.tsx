@@ -33,7 +33,7 @@ function RootComponent() {
   return (
     <div className="flex h-screen ">
       <SideMenu />
-      <div className="flex flex-col w-3/4 p-8 justify-between">
+      <div className="flex flex-col w-3/4 p-12 justify-between">
         <HeadBar />
         <Outlet />
         <Footer />

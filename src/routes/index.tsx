@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -21,9 +21,12 @@ function RouteComponent() {
         fast, and intuitive. Get started now and simplify the way you handle
         tasks—one table at a time.
       </p>
-      <button className="bg-green-400 text-white hover:bg-green-300 transition-all ease-in-out duration-200 px-4 py-2 rounded-3xl cursor-pointer">
+      <Link
+        to="/table"
+        className="bg-green-400 text-white hover:bg-green-300 transition-all ease-in-out duration-200 px-4 py-2 rounded-3xl cursor-pointer"
+      >
         Create your first table!
-      </button>
+      </Link>
     </div>
   );
 }
