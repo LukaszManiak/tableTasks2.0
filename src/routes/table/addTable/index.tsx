@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Table, useTables } from "../../../contexts/TableContext";
 
 export const Route = createFileRoute("/table/addTable/")({
   component: RouteComponent,
@@ -16,10 +17,24 @@ function RouteComponent() {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<TableInputs>();
 
-  const onSubmit: SubmitHandler<TableInputs> = (data) => console.log(data);
+  const { setTables } = useTables();
+
+  const onSubmit: SubmitHandler<TableInputs> = (data) => {
+    const newTable: Table = {
+      // id:
+      timeCreate: new Date().toISOString(),
+      type: "table",
+      title: data.title,
+      tasks: [],
+    };
+
+    setTables((prevTables) => [...prevTables, newTable]);
+    reset();
+  };
 
   return (
     <div>
