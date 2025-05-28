@@ -1,23 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Table } from "../__root";
+import { useTables } from "../../contexts/TableContext";
+// import { Table } from "../__root";
 
 export const Route = createFileRoute("/table/")({
   component: RouteComponent,
 });
 
-const tables: Table[] = [];
-
 function RouteComponent() {
+  const { tables, setTables } = useTables();
+
   return (
-    <div>
+    <div className="flex flex-col gap-y-4">
       <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
       {tables.length > 0 ? (
-        <p className="text-lg  mb-4">
+        <p className="text-xl   mb-4">
           Below is the list of your created tables. Select one to view or manage
           its tasks.
         </p>
       ) : (
-        <p className="text-lg  mb-4">
+        <p className="text-xl font-bold  mb-4">
           You haven't created any tables yet.{" "}
           <Link
             to="/table/addTable"
@@ -27,6 +28,21 @@ function RouteComponent() {
           </Link>
         </p>
       )}
+      <ul className="flex gap-x-6 gap-y-6 items-center flex-wrap">
+        {tables.length > 0 &&
+          tables.map((table) => (
+            <Link
+              to=""
+              className="p-4 flex flex-col gap-y-2 cursor-pointer rounded-md bg-green-50 hover:mb-2 hover:bg-green-100 transition-all ease-in-out duration-200"
+            >
+              <span className="flex gap-x-2">
+                <p className="font-bold">{table.title}</p>
+                <p className="bg-green-300 px-2 rounded-full">{table.type}</p>
+              </span>
+              <p>Created at: {table.timeCreate.slice(0, 10)}</p>
+            </Link>
+          ))}
+      </ul>
     </div>
   );
 }
