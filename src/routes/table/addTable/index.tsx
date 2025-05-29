@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { v4 as uuidv4 } from "uuid";
 import { Link } from "@tanstack/react-router";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Table, useTables } from "../../../contexts/TableContext";
-
 export const Route = createFileRoute("/table/addTable/")({
   component: RouteComponent,
 });
@@ -25,7 +26,7 @@ function RouteComponent() {
 
   const onSubmit: SubmitHandler<TableInputs> = (data) => {
     const newTable: Table = {
-      // id:
+      id: uuidv4(),
       timeCreate: new Date().toISOString(),
       type: "table",
       title: data.title,

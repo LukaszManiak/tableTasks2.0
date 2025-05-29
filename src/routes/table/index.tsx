@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTables } from "../../contexts/TableContext";
-// import { Table } from "../__root";
 
 export const Route = createFileRoute("/table/")({
   component: RouteComponent,
@@ -18,7 +17,7 @@ function RouteComponent() {
           its tasks.
         </p>
       ) : (
-        <p className="text-xl font-bold  mb-4">
+        <p className="text-xl   mb-4">
           You haven't created any tables yet.{" "}
           <Link
             to="/table/addTable"
@@ -32,7 +31,7 @@ function RouteComponent() {
         {tables.length > 0 &&
           tables.map((table) => (
             <Link
-              to=""
+              to={`/table/${table.id}/`}
               className="p-4 flex flex-col gap-y-2 cursor-pointer rounded-md bg-green-50 hover:mb-2 hover:bg-green-100 transition-all ease-in-out duration-200"
             >
               <span className="flex gap-x-2">

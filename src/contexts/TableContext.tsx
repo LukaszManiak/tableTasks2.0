@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { useLocalStorage } from "../useLocalStorage";
 
 export type Table = {
-  // id: string;
+  id: string;
   timeCreate: string;
   type: "table" | "archived";
   title: string;
@@ -11,6 +11,7 @@ export type Table = {
 
 export type Task = {
   id: string;
+  type: "todo" | "doing" | "done";
   timeCreate: string;
   title: string;
   description: string;
