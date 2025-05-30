@@ -29,7 +29,7 @@ function RouteComponent() {
             className="px-4 py-2 bg-green-200 rounded-4xl hover:bg-green-300 transition-all ease-in-out duration-200"
             to="/table"
           >
-            Edit Task
+            Edit Table
           </Link>
           <Link
             className="px-4 py-2 bg-green-300 rounded-4xl hover:bg-green-200 transition-all ease-in-out duration-200"

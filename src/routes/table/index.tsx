@@ -10,7 +10,12 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
+      <div className="flex justify-between items-center w-1/3">
+        <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
+        <Link to="/table/addTable" className="bg-green-200 rounded-full p-2">
+          Add New Table
+        </Link>
+      </div>
       {tables.length > 0 ? (
         <p className="text-xl   mb-4">
           Below is the list of your created tables. Select one to view or manage
@@ -31,8 +36,9 @@ function RouteComponent() {
         {tables.length > 0 &&
           tables.map((table) => (
             <Link
+              key={table.id}
               to={`/table/${table.id}/`}
-              className="p-4 flex flex-col gap-y-2 cursor-pointer rounded-md bg-green-50 hover:mb-2 hover:bg-green-100 transition-all ease-in-out duration-200"
+              className="p-4 flex flex-col gap-y-2 cursor-pointer rounded-md bg-green-50 hover:bg-green-100 transition-all ease-in-out duration-200 transform hover:-translate-y-1"
             >
               <span className="flex gap-x-2">
                 <p className="font-bold">{table.title}</p>

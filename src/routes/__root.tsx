@@ -15,7 +15,7 @@ function RootComponent() {
     <TablesProvider>
       <div className="flex h-screen ">
         <SideMenu />
-        <div className="flex flex-col w-3/4 p-12 justify-between">
+        <div className="flex flex-col w-11/12 p-12 justify-between">
           <HeadBar />
           <Outlet />
           <Footer />
