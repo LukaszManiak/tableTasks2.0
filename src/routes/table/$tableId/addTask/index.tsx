@@ -1,17 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Table, useTables, Task } from "../../../../contexts/TableContext";
+import { v4 as uuidv4 } from "uuid";
 
-export const Route = createFileRoute("/table/addTask/")({
+export const Route = createFileRoute("/table/$tableId/addTask/")({
   component: RouteComponent,
 });
 
 type TaskInputs = {
   title: string;
-  taskDescription: string;
-  subTasks: string[];
-  tags: string[];
-  type: "todo" | "doing" | "done";
+  description: string;
 };
 
 function RouteComponent() {
@@ -19,10 +22,42 @@ function RouteComponent() {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<TaskInputs>();
+  } = useForm<Task>();
 
-  const onSubmit: SubmitHandler<TaskInputs> = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const { tables, setTables } = useTables();
+  const { tableId } = useParams({
+    strict: true,
+    from: "__root__",
+  });
+
+  const table: Table | undefined = tables.find((table) => table.id === tableId);
+
+  const onSubmit: SubmitHandler<TaskInputs> = (data) => {
+    if (!table) return;
+
+    const newTask: Task = {
+      id: uuidv4(),
+      title: data.title,
+      description: data.description,
+      type: "todo",
+    };
+
+    const updatedTable: Table = {
+      ...table,
+      tasks: [...table.tasks, newTask],
+    };
+
+    setTables((prevTables) =>
+      prevTables.map((t) => (t.id === table.id ? updatedTable : t))
+    );
+
+    reset();
+    navigate({ to: `/table/${tableId}/` });
+  };
 
   return (
     <div>
@@ -48,7 +83,7 @@ function RouteComponent() {
         <label className="text-3xl font-bold">Description</label>
         <input
           className="border-2 rounded-md p-4"
-          {...register("taskDescription", {
+          {...register("description", {
             minLength: {
               value: 3,
               message:

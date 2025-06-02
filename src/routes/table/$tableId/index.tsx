@@ -27,13 +27,13 @@ function RouteComponent() {
         <span className="flex items-center gap-x-2">
           <Link
             className="px-4 py-2 bg-green-200 rounded-4xl hover:bg-green-300 transition-all ease-in-out duration-200"
-            to="/table"
+            to={`/table/${tableId}/edit`}
           >
             Edit Table
           </Link>
           <Link
-            className="px-4 py-2 bg-green-300 rounded-4xl hover:bg-green-200 transition-all ease-in-out duration-200"
-            to="/table"
+            className="px-4 py-2 bg-green-300 rounded-4xl hover:bg-green-200 transition-all ease-in-out duration-200 "
+            to={`/table/${tableId}/addTask/`}
           >
             Add New Task
           </Link>
@@ -44,14 +44,50 @@ function RouteComponent() {
 
       {/* tasks list */}
       <div className="flex items-center w-full justify-between">
-        <ul>
+        <ul className="flex flex-col gap-y-6">
           <p className="font-bold tracking-widest">TODO</p>
+          {table?.tasks
+            .filter((task) => task.type === "todo")
+            .map((task) => (
+              <Link
+                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                to={`/table/${tableId}/${task.id}/`}
+                key={task.id}
+              >
+                <p className="font-semibold">{task.title}</p>
+                <p>{task.description.slice(0, 20)}...</p>
+              </Link>
+            ))}
         </ul>
         <ul>
           <p className="font-bold tracking-widest">DOING</p>
+          {table?.tasks
+            .filter((task) => task.type === "doing")
+            .map((task) => (
+              <Link
+                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                to={`/table/${tableId}/${task.id}/`}
+                key={task.id}
+              >
+                <p className="font-semibold">{task.title}</p>
+                <p>{task.description.slice(0, 20)}...</p>
+              </Link>
+            ))}
         </ul>
         <ul>
           <p className="font-bold tracking-widest">DONE</p>
+          {table?.tasks
+            .filter((task) => task.type === "done")
+            .map((task) => (
+              <Link
+                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                to={`/table/${tableId}/${task.id}/`}
+                key={task.id}
+              >
+                <p className="font-semibold">{task.title}</p>
+                <p>{task.description.slice(0, 20)}...</p>
+              </Link>
+            ))}
         </ul>
       </div>
     </div>

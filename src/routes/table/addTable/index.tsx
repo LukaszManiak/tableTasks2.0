@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "@tanstack/react-router";
 
@@ -14,6 +14,8 @@ type TableInputs = {
 };
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -35,6 +37,7 @@ function RouteComponent() {
 
     setTables((prevTables) => [...prevTables, newTable]);
     reset();
+    navigate({ to: "/table" });
   };
 
   return (

@@ -12,9 +12,11 @@ function RouteComponent() {
     <div className="flex flex-col gap-y-4">
       <div className="flex justify-between items-center w-1/3">
         <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
-        <Link to="/table/addTable" className="bg-green-200 rounded-full p-2">
-          Add New Table
-        </Link>
+        {tables.length > 0 && (
+          <Link to="/table/addTable" className="bg-green-200 rounded-full p-2">
+            Add New Table
+          </Link>
+        )}
       </div>
       {tables.length > 0 ? (
         <p className="text-xl   mb-4">

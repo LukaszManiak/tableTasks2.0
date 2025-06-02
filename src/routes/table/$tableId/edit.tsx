@@ -1,6 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
-import { useTables } from "../../../contexts/TableContext";
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Table, useTables } from "../../../contexts/TableContext";
 
 export const Route = createFileRoute("/table/$tableId/edit")({
   component: RouteComponent,
@@ -12,23 +17,52 @@ type TableInputs = {
 };
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     watch,
     reset,
+
     formState: { errors, isSubmitting },
   } = useForm<TableInputs>();
 
   const { tables, setTables } = useTables();
+  const { tableId } = useParams({
+    strict: true,
+    from: "__root__",
+  });
+
+  const table: Table | undefined = tables.find((table) => table.id === tableId);
+
+  const onSubmit: SubmitHandler<TableInputs> = (data) => {
+    if (!table) return;
+
+    const updatedTable: Table = {
+      ...table,
+      title: data.title,
+    };
+
+    setTables((prevTables) =>
+      prevTables.map((t) => (t.id === table.id ? updatedTable : t))
+    );
+
+    reset();
+    navigate({ to: "/table" });
+  };
 
   return (
     <div>
-      <h1 className="text-6xl font-bold mb-12">Edit your "xyz" table!</h1>
-      <form className="w-1/2 flex flex-col gap-y-8  rounded-3xl ">
+      <h1 className="text-6xl font-bold mb-12">Edit your table!</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-1/2 flex flex-col gap-y-8  rounded-3xl "
+      >
         <label className="text-3xl font-bold ">Title</label>
         <input
           className="border-2 rounded-lg p-4"
+          defaultValue={table?.title}
           {...register("title", {
             required: "Title is required",
             minLength: {

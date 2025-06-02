@@ -13,11 +13,12 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as TableIndexImport } from './routes/table/index'
-import { Route as TableAddTaskIndexImport } from './routes/table/addTask/index'
 import { Route as TableAddTableIndexImport } from './routes/table/addTable/index'
 import { Route as TableTableIdIndexImport } from './routes/table/$tableId/index'
 import { Route as TableTableIdEditImport } from './routes/table/$tableId/edit'
+import { Route as TableTableIdAddTaskIndexImport } from './routes/table/$tableId/addTask/index'
 import { Route as TableTableIdTaskIdIndexImport } from './routes/table/$tableId/$taskId/index'
+import { Route as TableTableIdTaskIdEditImport } from './routes/table/$tableId/$taskId/edit'
 
 // Create/Update Routes
 
@@ -30,12 +31,6 @@ const IndexRoute = IndexImport.update({
 const TableIndexRoute = TableIndexImport.update({
   id: '/table/',
   path: '/table/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TableAddTaskIndexRoute = TableAddTaskIndexImport.update({
-  id: '/table/addTask/',
-  path: '/table/addTask/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,9 +52,21 @@ const TableTableIdEditRoute = TableTableIdEditImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const TableTableIdAddTaskIndexRoute = TableTableIdAddTaskIndexImport.update({
+  id: '/table/$tableId/addTask/',
+  path: '/table/$tableId/addTask/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const TableTableIdTaskIdIndexRoute = TableTableIdTaskIdIndexImport.update({
   id: '/table/$tableId/$taskId/',
   path: '/table/$tableId/$taskId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TableTableIdTaskIdEditRoute = TableTableIdTaskIdEditImport.update({
+  id: '/table/$tableId/$taskId/edit',
+  path: '/table/$tableId/$taskId/edit',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,11 +109,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TableAddTableIndexImport
       parentRoute: typeof rootRoute
     }
-    '/table/addTask/': {
-      id: '/table/addTask/'
-      path: '/table/addTask'
-      fullPath: '/table/addTask'
-      preLoaderRoute: typeof TableAddTaskIndexImport
+    '/table/$tableId/$taskId/edit': {
+      id: '/table/$tableId/$taskId/edit'
+      path: '/table/$tableId/$taskId/edit'
+      fullPath: '/table/$tableId/$taskId/edit'
+      preLoaderRoute: typeof TableTableIdTaskIdEditImport
       parentRoute: typeof rootRoute
     }
     '/table/$tableId/$taskId/': {
@@ -114,6 +121,13 @@ declare module '@tanstack/react-router' {
       path: '/table/$tableId/$taskId'
       fullPath: '/table/$tableId/$taskId'
       preLoaderRoute: typeof TableTableIdTaskIdIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/table/$tableId/addTask/': {
+      id: '/table/$tableId/addTask/'
+      path: '/table/$tableId/addTask'
+      fullPath: '/table/$tableId/addTask'
+      preLoaderRoute: typeof TableTableIdAddTaskIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -127,8 +141,9 @@ export interface FileRoutesByFullPath {
   '/table/$tableId/edit': typeof TableTableIdEditRoute
   '/table/$tableId': typeof TableTableIdIndexRoute
   '/table/addTable': typeof TableAddTableIndexRoute
-  '/table/addTask': typeof TableAddTaskIndexRoute
+  '/table/$tableId/$taskId/edit': typeof TableTableIdTaskIdEditRoute
   '/table/$tableId/$taskId': typeof TableTableIdTaskIdIndexRoute
+  '/table/$tableId/addTask': typeof TableTableIdAddTaskIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -137,8 +152,9 @@ export interface FileRoutesByTo {
   '/table/$tableId/edit': typeof TableTableIdEditRoute
   '/table/$tableId': typeof TableTableIdIndexRoute
   '/table/addTable': typeof TableAddTableIndexRoute
-  '/table/addTask': typeof TableAddTaskIndexRoute
+  '/table/$tableId/$taskId/edit': typeof TableTableIdTaskIdEditRoute
   '/table/$tableId/$taskId': typeof TableTableIdTaskIdIndexRoute
+  '/table/$tableId/addTask': typeof TableTableIdAddTaskIndexRoute
 }
 
 export interface FileRoutesById {
@@ -148,8 +164,9 @@ export interface FileRoutesById {
   '/table/$tableId/edit': typeof TableTableIdEditRoute
   '/table/$tableId/': typeof TableTableIdIndexRoute
   '/table/addTable/': typeof TableAddTableIndexRoute
-  '/table/addTask/': typeof TableAddTaskIndexRoute
+  '/table/$tableId/$taskId/edit': typeof TableTableIdTaskIdEditRoute
   '/table/$tableId/$taskId/': typeof TableTableIdTaskIdIndexRoute
+  '/table/$tableId/addTask/': typeof TableTableIdAddTaskIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -160,8 +177,9 @@ export interface FileRouteTypes {
     | '/table/$tableId/edit'
     | '/table/$tableId'
     | '/table/addTable'
-    | '/table/addTask'
+    | '/table/$tableId/$taskId/edit'
     | '/table/$tableId/$taskId'
+    | '/table/$tableId/addTask'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -169,8 +187,9 @@ export interface FileRouteTypes {
     | '/table/$tableId/edit'
     | '/table/$tableId'
     | '/table/addTable'
-    | '/table/addTask'
+    | '/table/$tableId/$taskId/edit'
     | '/table/$tableId/$taskId'
+    | '/table/$tableId/addTask'
   id:
     | '__root__'
     | '/'
@@ -178,8 +197,9 @@ export interface FileRouteTypes {
     | '/table/$tableId/edit'
     | '/table/$tableId/'
     | '/table/addTable/'
-    | '/table/addTask/'
+    | '/table/$tableId/$taskId/edit'
     | '/table/$tableId/$taskId/'
+    | '/table/$tableId/addTask/'
   fileRoutesById: FileRoutesById
 }
 
@@ -189,8 +209,9 @@ export interface RootRouteChildren {
   TableTableIdEditRoute: typeof TableTableIdEditRoute
   TableTableIdIndexRoute: typeof TableTableIdIndexRoute
   TableAddTableIndexRoute: typeof TableAddTableIndexRoute
-  TableAddTaskIndexRoute: typeof TableAddTaskIndexRoute
+  TableTableIdTaskIdEditRoute: typeof TableTableIdTaskIdEditRoute
   TableTableIdTaskIdIndexRoute: typeof TableTableIdTaskIdIndexRoute
+  TableTableIdAddTaskIndexRoute: typeof TableTableIdAddTaskIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -199,8 +220,9 @@ const rootRouteChildren: RootRouteChildren = {
   TableTableIdEditRoute: TableTableIdEditRoute,
   TableTableIdIndexRoute: TableTableIdIndexRoute,
   TableAddTableIndexRoute: TableAddTableIndexRoute,
-  TableAddTaskIndexRoute: TableAddTaskIndexRoute,
+  TableTableIdTaskIdEditRoute: TableTableIdTaskIdEditRoute,
   TableTableIdTaskIdIndexRoute: TableTableIdTaskIdIndexRoute,
+  TableTableIdAddTaskIndexRoute: TableTableIdAddTaskIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -218,8 +240,9 @@ export const routeTree = rootRoute
         "/table/$tableId/edit",
         "/table/$tableId/",
         "/table/addTable/",
-        "/table/addTask/",
-        "/table/$tableId/$taskId/"
+        "/table/$tableId/$taskId/edit",
+        "/table/$tableId/$taskId/",
+        "/table/$tableId/addTask/"
       ]
     },
     "/": {
@@ -237,11 +260,14 @@ export const routeTree = rootRoute
     "/table/addTable/": {
       "filePath": "table/addTable/index.tsx"
     },
-    "/table/addTask/": {
-      "filePath": "table/addTask/index.tsx"
+    "/table/$tableId/$taskId/edit": {
+      "filePath": "table/$tableId/$taskId/edit.tsx"
     },
     "/table/$tableId/$taskId/": {
       "filePath": "table/$tableId/$taskId/index.tsx"
+    },
+    "/table/$tableId/addTask/": {
+      "filePath": "table/$tableId/addTask/index.tsx"
     }
   }
 }

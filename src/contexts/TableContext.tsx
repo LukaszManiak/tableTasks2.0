@@ -12,10 +12,10 @@ export type Table = {
 export type Task = {
   id: string;
   type: "todo" | "doing" | "done";
-  timeCreate: string;
+  // timeCreate: string;
   title: string;
   description: string;
-  subTasks: SubTask[];
+  // subTasks: SubTask[];
 };
 
 export type SubTask = {
