@@ -1,9 +1,118 @@
-import { createFileRoute } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Table, Task, useTables } from "../../../../contexts/TableContext";
 
-export const Route = createFileRoute('/table/$tableId/$taskId/edit')({
+export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
   component: RouteComponent,
-})
+});
+
+type TaskInputs = {
+  title: string;
+  // type: "table" | "archived";
+  description: string;
+};
 
 function RouteComponent() {
-  return <div>Hello "/table/$tableId/$taskId/edit"!</div>
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+
+    formState: { errors, isSubmitting },
+  } = useForm<TaskInputs>();
+
+  const { tables, setTables } = useTables();
+  const { tableId, taskId } = useParams({
+    strict: true,
+    from: "__root__",
+  });
+
+  const table: Table | undefined = tables.find((table) => table.id === tableId);
+  const task: Task | undefined = table?.tasks.find(
+    (task) => task.id === taskId
+  );
+
+  const onSubmit: SubmitHandler<TaskInputs> = (data) => {
+    if (!table || !task) return;
+
+    const updatedTask: Task = {
+      ...task,
+      title: data.title,
+      description: data.description,
+    };
+
+    const updatedTable: Table = {
+      ...table,
+      tasks: table.tasks.map((t) => (t.id === task.id ? updatedTask : t)),
+    };
+
+    setTables((prevTables) =>
+      prevTables.map((t) => (t.id === table.id ? updatedTable : t))
+    );
+
+    reset();
+    navigate({ to: `/table/${tableId}/${taskId}/` });
+  };
+
+  return (
+    <div>
+      <h1 className="text-6xl font-bold mb-12">Edit your task!</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-1/2 flex flex-col gap-y-8 rounded-3xl "
+      >
+        <label className="text-3xl font-bold ">Title</label>
+        <input
+          className="border-2 rounded-md p-4"
+          defaultValue={task?.title}
+          {...register("title", {
+            required: "Title is required",
+            minLength: {
+              value: 3,
+              message: "Title needs to be at least 3 characters long",
+            },
+          })}
+          type="text"
+        />
+        {errors.title && <p>{errors.title.message}</p>}
+
+        <label className="text-3xl font-bold">Description</label>
+        <input
+          className="border-2 rounded-md p-4"
+          defaultValue={task?.description}
+          {...register("description", {
+            minLength: {
+              value: 3,
+              message:
+                "Task description needs to be at least 3 characters long",
+            },
+          })}
+          type="text"
+        />
+
+        <div className="flex gap-4">
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="bg-green-300 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4"
+          >
+            ADD TASK
+          </button>
+          <Link to={`/table/${tableId}/${taskId}/`}>
+            <button className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4">
+              CANCEL
+            </button>
+          </Link>
+        </div>
+      </form>
+    </div>
+  );
 }

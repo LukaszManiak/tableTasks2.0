@@ -17,8 +17,6 @@ function RouteComponent() {
     (task) => task.id === taskId
   );
 
-  console.log(table, task);
-
   return (
     <div className="flex flex-col gap-y-6 items-start">
       <div className="flex justify-between w-full items-center">
