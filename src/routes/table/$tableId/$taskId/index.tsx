@@ -6,7 +6,7 @@ export const Route = createFileRoute("/table/$tableId/$taskId/")({
 });
 
 function RouteComponent() {
-  const { tables, setTables } = useTables();
+  const { tables } = useTables();
   const { tableId, taskId } = useParams({
     strict: true,
     from: "__root__",

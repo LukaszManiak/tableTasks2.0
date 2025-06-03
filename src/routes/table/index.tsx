@@ -6,7 +6,7 @@ export const Route = createFileRoute("/table/")({
 });
 
 function RouteComponent() {
-  const { tables, setTables } = useTables();
+  const { tables } = useTables();
 
   return (
     <div className="flex flex-col gap-y-4">

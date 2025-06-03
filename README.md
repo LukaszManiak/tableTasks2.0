@@ -8,10 +8,10 @@ TableTasks is a feature-rich todo application that empowers users with a wide ra
 
 This project was created as a personal learning tool to solidify my understanding of modern frontend development practices. The main technologies used in this project include:
 
-- ✅ **TypeScript** – To improve type safety, catch errors earlier, and write more maintainable code.
-- ✅ **TanStack Router** – To explore a modern, type-safe, file-based routing solution for React apps.
-- ✅ **TanStack Query** – For efficient data fetching, caching, and syncing with server state.
-- ✅ **Tailwind CSS** – To rapidly build responsive and styled components with utility-first CSS.
+- **TypeScript** – To improve type safety, catch errors earlier, and write more maintainable code.
+- **TanStack Router** – To explore a modern, type-safe, file-based routing solution for React apps.
+- **TanStack Query** – For efficient data fetching, caching, and syncing with server state.
+- **Tailwind CSS** – To rapidly build responsive and styled components with utility-first CSS.
 
 ## Goal
 
