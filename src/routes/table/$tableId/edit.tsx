@@ -84,7 +84,7 @@ function RouteComponent() {
           >
             EDIT TABLE
           </button>
-          <Link to="/">
+          <Link to={`/table/${tableId}/`}>
             <button className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4">
               CANCEL
             </button>
