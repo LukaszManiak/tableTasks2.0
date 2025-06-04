@@ -1,4 +1,9 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 import { Table, useTables } from "../../../contexts/TableContext";
 
 export const Route = createFileRoute("/table/$tableId/")({
@@ -6,6 +11,8 @@ export const Route = createFileRoute("/table/$tableId/")({
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   const { tables, setTables } = useTables();
   const { tableId } = useParams({
     strict: true,
@@ -13,6 +20,14 @@ function RouteComponent() {
   });
 
   const table: Table | undefined = tables.find((table) => table.id === tableId);
+
+  function deleteTable() {
+    if (!table) return;
+
+    setTables((prevTables) => prevTables.filter((t) => t.id !== table.id));
+
+    navigate({ to: "/table/" });
+  }
 
   return (
     <div className="flex flex-col gap-y-6 items-start w-full">
@@ -37,6 +52,12 @@ function RouteComponent() {
           >
             Add New Task
           </Link>
+          <button
+            className="bg-black rounded-4xl text-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-all ease-in-out duration-300 cursor-pointer"
+            onClick={() => deleteTable()}
+          >
+            Delete Table
+          </button>
         </span>
       </div>
       <h1 className="text-3xl font-bold tracking-wider">{table?.title}</h1>
