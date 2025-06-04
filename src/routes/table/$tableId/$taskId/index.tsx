@@ -1,4 +1,9 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 import { Table, Task, useTables } from "../../../../contexts/TableContext";
 
 export const Route = createFileRoute("/table/$tableId/$taskId/")({
@@ -6,7 +11,8 @@ export const Route = createFileRoute("/table/$tableId/$taskId/")({
 });
 
 function RouteComponent() {
-  const { tables } = useTables();
+  const navigate = useNavigate();
+  const { tables, setTables } = useTables();
   const { tableId, taskId } = useParams({
     strict: true,
     from: "__root__",
@@ -17,6 +23,21 @@ function RouteComponent() {
     (task) => task.id === taskId
   );
 
+  function deleteTask() {
+    if (!table || !task) return;
+
+    const updatedTable: Table = {
+      ...table,
+      tasks: table.tasks.filter((t) => t.id !== task.id),
+    };
+
+    setTables((prevTables) =>
+      prevTables.map((t) => (t.id === table.id ? updatedTable : t))
+    );
+
+    navigate({ to: `/table/${tableId}/` });
+  }
+
   return (
     <div className="flex flex-col gap-y-6 items-start">
       <div className="flex justify-between w-full items-center">
@@ -26,12 +47,20 @@ function RouteComponent() {
         >
           Go back
         </Link>
-        <Link
-          to={`/table/${tableId}/${taskId}/edit`}
-          className="bg-green-300 rounded-full px-4 py-2 hover:bg-green-200 transition-all ease-in-out duration-200"
-        >
-          Edit Task
-        </Link>
+        <span className="flex items-center gap-x-4">
+          <Link
+            to={`/table/${tableId}/${taskId}/edit`}
+            className="bg-green-300 rounded-full px-4 py-2 hover:bg-green-200 transition-all ease-in-out duration-200"
+          >
+            Edit Task
+          </Link>
+          <button
+            className="bg-black rounded-4xl text-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-all ease-in-out duration-300 cursor-pointer"
+            onClick={() => deleteTask()}
+          >
+            Delete The Task
+          </button>
+        </span>
       </div>
       <>
         <span className="flex gap-4 items-center">

@@ -13,7 +13,6 @@ export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
 
 type TaskInputs = {
   title: string;
-  // type: "table" | "archived";
   description: string;
 };
 

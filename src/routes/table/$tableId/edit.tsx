@@ -49,7 +49,7 @@ function RouteComponent() {
     );
 
     reset();
-    navigate({ to: "/table" });
+    navigate({ to: `/table/${tableId}/` });
   };
 
   return (

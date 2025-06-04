@@ -21,7 +21,6 @@ function RouteComponent() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<Task>();
@@ -43,6 +42,7 @@ function RouteComponent() {
       id: uuidv4(),
       title: data.title,
       description: data.description,
+      timeCreate: new Date().toISOString(),
       type: "todo",
     };
 

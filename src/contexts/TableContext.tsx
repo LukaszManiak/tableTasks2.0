@@ -12,7 +12,7 @@ export type Table = {
 export type Task = {
   id: string;
   type: "todo" | "doing" | "done";
-  // timeCreate: string;
+  timeCreate: string;
   title: string;
   description: string;
   // subTasks: SubTask[];
@@ -20,7 +20,6 @@ export type Task = {
 
 export type SubTask = {
   id: string;
-  timeCreate: string;
   title: string;
   description: string;
 };
