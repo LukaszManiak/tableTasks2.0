@@ -14,6 +14,7 @@ export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
 type TaskInputs = {
   title: string;
   description: string;
+  type: "todo" | "doing" | "done";
 };
 
 function RouteComponent() {
@@ -45,6 +46,7 @@ function RouteComponent() {
       ...task,
       title: data.title,
       description: data.description,
+      type: data.type,
     };
 
     const updatedTable: Table = {
@@ -81,6 +83,44 @@ function RouteComponent() {
           type="text"
         />
         {errors.title && <p>{errors.title.message}</p>}
+
+        <label className="text-3xl font-bold">Task Type</label>
+        <div className="flex gap-x-6">
+          <label className="flex items-center gap-2 text-lg">
+            <input
+              type="radio"
+              value="todo"
+              {...register("type", { required: true })}
+              className="accent-green-500"
+            />
+            ToDo
+          </label>
+
+          <label className="flex items-center gap-2 text-lg">
+            <input
+              type="radio"
+              value="doing"
+              {...register("type", { required: true })}
+              className="accent-green-500"
+            />
+            Doing
+          </label>
+
+          <label className="flex items-center gap-2 text-lg">
+            <input
+              type="radio"
+              value="done"
+              {...register("type", { required: true })}
+              className="accent-green-500"
+            />
+            Done
+          </label>
+        </div>
+        {errors.type && (
+          <p className="text-green-500 text-sm mt-1">
+            Please select a task type.
+          </p>
+        )}
 
         <label className="text-3xl font-bold">Description</label>
         <input

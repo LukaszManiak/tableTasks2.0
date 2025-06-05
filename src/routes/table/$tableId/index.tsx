@@ -80,7 +80,7 @@ function RouteComponent() {
               </Link>
             ))}
         </ul>
-        <ul>
+        <ul className="flex flex-col gap-y-6">
           <p className="font-bold tracking-widest">DOING</p>
           {table?.tasks
             .filter((task) => task.type === "doing")
@@ -95,7 +95,7 @@ function RouteComponent() {
               </Link>
             ))}
         </ul>
-        <ul>
+        <ul className="flex flex-col gap-y-6">
           <p className="font-bold tracking-widest">DONE</p>
           {table?.tasks
             .filter((task) => task.type === "done")
