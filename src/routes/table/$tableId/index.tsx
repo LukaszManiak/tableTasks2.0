@@ -31,7 +31,7 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-y-6 items-start w-full">
-      <div className="flex items-center w-full justify-between ">
+      <div className="flex items-center w-full justify-between flex-wrap gap-y-2">
         <Link
           className="px-4 py-2 bg-green-200 rounded-4xl hover:bg-green-100 transition-all ease-in-out duration-200"
           to="/table"

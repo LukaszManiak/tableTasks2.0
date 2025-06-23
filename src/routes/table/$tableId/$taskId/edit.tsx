@@ -20,14 +20,6 @@ type TaskInputs = {
 function RouteComponent() {
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-
-    formState: { errors, isSubmitting },
-  } = useForm<TaskInputs>();
-
   const { tables, setTables } = useTables();
   const { tableId, taskId } = useParams({
     strict: true,
@@ -38,6 +30,20 @@ function RouteComponent() {
   const task: Task | undefined = table?.tasks.find(
     (task) => task.id === taskId
   );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+
+    formState: { errors, isSubmitting },
+  } = useForm<TaskInputs>({
+    defaultValues: {
+      title: task?.title,
+      description: task?.description,
+      type: task?.type,
+    },
+  });
 
   const onSubmit: SubmitHandler<TaskInputs> = (data) => {
     if (!table || !task) return;
@@ -72,7 +78,6 @@ function RouteComponent() {
         <label className="text-3xl font-bold ">Title</label>
         <input
           className="border-2 rounded-md p-4"
-          defaultValue={task?.title}
           {...register("title", {
             required: "Title is required",
             minLength: {
@@ -125,7 +130,6 @@ function RouteComponent() {
         <label className="text-3xl font-bold">Description</label>
         <input
           className="border-2 rounded-md p-4"
-          defaultValue={task?.description}
           {...register("description", {
             minLength: {
               value: 3,
@@ -142,7 +146,7 @@ function RouteComponent() {
             type="submit"
             className="bg-green-300 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4"
           >
-            ADD TASK
+            EDIT TASK
           </button>
           <Link to={`/table/${tableId}/${taskId}/`}>
             <button className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4">

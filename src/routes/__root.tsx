@@ -13,9 +13,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <TablesProvider>
-      <div className="flex h-screen ">
+      <div className="flex xl:flex-row flex-col gap-y-4 h-screen ">
         <SideMenu />
-        <div className="flex flex-col w-11/12 p-12 justify-between">
+        <div className="flex flex-col w-11/12 p-12 h-full justify-between">
           <HeadBar />
           <Outlet />
           <Footer />

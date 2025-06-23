@@ -15,12 +15,11 @@ export type Task = {
   timeCreate: string;
   title: string;
   description: string;
-  // subTasks: SubTask[];
+  subTasks: SubTask[];
 };
 
 export type SubTask = {
   id: string;
-  title: string;
   description: string;
 };
 

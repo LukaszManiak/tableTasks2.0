@@ -5,8 +5,14 @@ import {
 } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Table, useTables, Task } from "../../../../contexts/TableContext";
+import {
+  Table,
+  useTables,
+  Task,
+  SubTask,
+} from "../../../../contexts/TableContext";
 import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 export const Route = createFileRoute("/table/$tableId/addTask/")({
   component: RouteComponent,
@@ -26,6 +32,22 @@ function RouteComponent() {
   } = useForm<Task>();
 
   const navigate = useNavigate();
+
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
+
+  const handleSubTaskChange = (index: number, value: string) => {
+    const updated = [...subTasks];
+    updated[index] = value;
+    setSubTasks(updated);
+  };
+
+  const addSubTask = () => {
+    setSubTasks((prev) => [...prev, ""]);
+  };
+
+  const removeSubTask = (index: number) => {
+    setSubTasks((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const { tables, setTables } = useTables();
   const { tableId } = useParams({
