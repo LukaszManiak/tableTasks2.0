@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="flex justify-between items-center p-4">
-      <div className="flex flex-col gap-y-2">
+    <footer className="flex xl:flex-row flex-col justify-between items-center p-4 ">
+      <div className="flex flex-row xl:flex-col gap-y-2">
         <p>© 2024 TableTask</p>
         <span>
           Old version of{" "}

@@ -83,10 +83,12 @@ function RouteComponent() {
 
   return (
     <div>
-      <h1 className="text-6xl font-bold mb-12">Create task for your table!</h1>
+      <h1 className="text-6xl  xl:text-start text-center font-bold mb-12">
+        Create task for your table!
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-1/2 flex flex-col gap-y-8 rounded-3xl "
+        className=" w-full xl:w-1/2 flex flex-col gap-y-8  xl:items-start items-center rounded-3xl "
       >
         <label className="text-3xl font-bold ">Title</label>
         <input

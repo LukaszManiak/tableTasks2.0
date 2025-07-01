@@ -64,7 +64,7 @@ function RouteComponent() {
       <p>Created: {table?.timeCreate}</p>
 
       {/* tasks list */}
-      <div className="flex items-center w-full justify-between">
+      <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 w-full justify-between">
         <ul className="flex flex-col gap-y-6">
           <p className="font-bold tracking-widest">TODO</p>
           {table?.tasks

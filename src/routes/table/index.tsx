@@ -10,7 +10,7 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex justify-between items-center w-1/3">
+      <div className="flex justify-between items-center w-full ">
         <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
         {tables.length > 0 && (
           <Link to="/table/addTable" className="bg-green-200 rounded-full p-2">
