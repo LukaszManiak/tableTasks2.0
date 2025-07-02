@@ -4,13 +4,16 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
-import { Table, useTables } from "../../../contexts/TableContext";
+import { Table, useTables, Note } from "../../../contexts/TableContext";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const Route = createFileRoute("/table/$tableId/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [noteContent, setNoteContent] = useState("");
   const navigate = useNavigate();
 
   const { tables, setTables } = useTables();
@@ -20,6 +23,31 @@ function RouteComponent() {
   });
 
   const table: Table | undefined = tables.find((table) => table.id === tableId);
+
+  function addNote() {
+    if (!noteContent || !table) return;
+
+    const newNote: Note = { id: uuidv4(), content: noteContent };
+
+    setTables((prevTables) =>
+      prevTables.map((t) =>
+        t.id === table.id ? { ...t, notes: [...(t.notes ?? []), newNote] } : t
+      )
+    );
+
+    setNoteContent("");
+  }
+
+  function deleteNote(noteId: string) {
+    if (!table) return;
+    setTables((prevTables) =>
+      prevTables.map((t) =>
+        t.id === table.id
+          ? { ...t, notes: t.notes?.filter((n) => n.id !== noteId) ?? [] }
+          : t
+      )
+    );
+  }
 
   function deleteTable() {
     if (!table) return;
@@ -108,6 +136,44 @@ function RouteComponent() {
                 <p className="font-semibold">{task.title}</p>
                 <p>{task.description.slice(0, 20)}...</p>
               </Link>
+            ))}
+        </ul>
+      </div>
+      {/* notes */}
+      <div className="flex flex-col gap-y-4 w-full">
+        <p className="text-xl font-semibold">Notes</p>
+
+        <div className="flex w-1/2 gap-x-4 items-center">
+          <input
+            className="border-2 border-green-300 p-2 rounded-2xl"
+            type="text"
+            placeholder="Write your note..."
+            value={noteContent}
+            onChange={(e) => setNoteContent(e.target.value)}
+          />
+          <button
+            className="bg-black rounded-4xl text-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-all ease-in-out duration-300 cursor-pointer"
+            onClick={addNote}
+          >
+            Add Note
+          </button>
+        </div>
+
+        <ul className="flex flex-col gap-y-2 w-full xl:w-1/2">
+          {table?.notes &&
+            table?.notes.map((note) => (
+              <li
+                key={note.id}
+                className="flex justify-between items-center bg-green-100 p-2 rounded-xl"
+              >
+                <span>{note.content}</span>
+                <button
+                  onClick={() => deleteNote(note.id)}
+                  className="text-sm  cursor-pointer "
+                >
+                  Delete
+                </button>
+              </li>
             ))}
         </ul>
       </div>

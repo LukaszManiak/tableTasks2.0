@@ -7,6 +7,7 @@ export type Table = {
   type: "table" | "archived";
   title: string;
   tasks: Task[];
+  notes?: Note[];
 };
 
 export type Task = {
@@ -21,6 +22,11 @@ export type Task = {
 export type SubTask = {
   id: string;
   description: string;
+};
+
+export type Note = {
+  id: string;
+  content: string;
 };
 
 type TablesContextType = {
