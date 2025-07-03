@@ -17,6 +17,7 @@ export type Task = {
   title: string;
   description: string;
   subTasks: SubTask[];
+  tags: string[];
 };
 
 export type SubTask = {

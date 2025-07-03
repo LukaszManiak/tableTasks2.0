@@ -89,93 +89,95 @@ function RouteComponent() {
         </span>
       </div>
       <h1 className="text-3xl font-bold tracking-wider">{table?.title}</h1>
-      <p>Created: {table?.timeCreate}</p>
+      <p>Created: {new Date(table?.timeCreate ?? "").toLocaleDateString()}</p>
 
       {/* tasks list */}
-      <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 w-full justify-between">
-        <ul className="flex flex-col gap-y-6">
-          <p className="font-bold tracking-widest">TODO</p>
-          {table?.tasks
-            .filter((task) => task.type === "todo")
-            .map((task) => (
-              <Link
-                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                to={`/table/${tableId}/${task.id}/`}
-                key={task.id}
-              >
-                <p className="font-semibold">{task.title}</p>
-                <p>{task.description.slice(0, 20)}...</p>
-              </Link>
-            ))}
-        </ul>
-        <ul className="flex flex-col gap-y-6">
-          <p className="font-bold tracking-widest">DOING</p>
-          {table?.tasks
-            .filter((task) => task.type === "doing")
-            .map((task) => (
-              <Link
-                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                to={`/table/${tableId}/${task.id}/`}
-                key={task.id}
-              >
-                <p className="font-semibold">{task.title}</p>
-                <p>{task.description.slice(0, 20)}...</p>
-              </Link>
-            ))}
-        </ul>
-        <ul className="flex flex-col gap-y-6">
-          <p className="font-bold tracking-widest">DONE</p>
-          {table?.tasks
-            .filter((task) => task.type === "done")
-            .map((task) => (
-              <Link
-                className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                to={`/table/${tableId}/${task.id}/`}
-                key={task.id}
-              >
-                <p className="font-semibold">{task.title}</p>
-                <p>{task.description.slice(0, 20)}...</p>
-              </Link>
-            ))}
-        </ul>
-      </div>
-      {/* notes */}
-      <div className="flex flex-col gap-y-4 w-full">
-        <p className="text-xl font-semibold">Notes</p>
-
-        <div className="flex w-1/2 gap-x-4 items-center">
-          <input
-            className="border-2 border-green-300 p-2 rounded-2xl"
-            type="text"
-            placeholder="Write your note..."
-            value={noteContent}
-            onChange={(e) => setNoteContent(e.target.value)}
-          />
-          <button
-            className="bg-black rounded-4xl text-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-all ease-in-out duration-300 cursor-pointer"
-            onClick={addNote}
-          >
-            Add Note
-          </button>
-        </div>
-
-        <ul className="flex flex-col gap-y-2 w-full xl:w-1/2">
-          {table?.notes &&
-            table?.notes.map((note) => (
-              <li
-                key={note.id}
-                className="flex justify-between items-center bg-green-100 p-2 rounded-xl"
-              >
-                <span>{note.content}</span>
-                <button
-                  onClick={() => deleteNote(note.id)}
-                  className="text-sm  cursor-pointer "
+      <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 justify-between  w-full ">
+        <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 w-3/5 justify-between">
+          <ul className="flex flex-col gap-y-6">
+            <p className="font-bold tracking-widest">TODO</p>
+            {table?.tasks
+              .filter((task) => task.type === "todo")
+              .map((task) => (
+                <Link
+                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  to={`/table/${tableId}/${task.id}/`}
+                  key={task.id}
                 >
-                  Delete
-                </button>
-              </li>
-            ))}
-        </ul>
+                  <p className="font-semibold">{task.title}</p>
+                  <p>{task.description.slice(0, 20)}...</p>
+                </Link>
+              ))}
+          </ul>
+          <ul className="flex flex-col gap-y-6">
+            <p className="font-bold tracking-widest">DOING</p>
+            {table?.tasks
+              .filter((task) => task.type === "doing")
+              .map((task) => (
+                <Link
+                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  to={`/table/${tableId}/${task.id}/`}
+                  key={task.id}
+                >
+                  <p className="font-semibold">{task.title}</p>
+                  <p>{task.description.slice(0, 20)}...</p>
+                </Link>
+              ))}
+          </ul>
+          <ul className="flex flex-col gap-y-6">
+            <p className="font-bold tracking-widest">DONE</p>
+            {table?.tasks
+              .filter((task) => task.type === "done")
+              .map((task) => (
+                <Link
+                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  to={`/table/${tableId}/${task.id}/`}
+                  key={task.id}
+                >
+                  <p className="font-semibold">{task.title}</p>
+                  <p>{task.description.slice(0, 20)}...</p>
+                </Link>
+              ))}
+          </ul>
+        </div>
+        {/* notes */}
+        <div className="flex flex-col w-full xl:w-2/5 gap-y-4 ">
+          <p className="text-xl font-semibold">Notes</p>
+
+          <div className="flex w-full gap-x-4 items-center">
+            <input
+              className="border-2 border-green-300 p-2 rounded-2xl"
+              type="text"
+              placeholder="Write your note..."
+              value={noteContent}
+              onChange={(e) => setNoteContent(e.target.value)}
+            />
+            <button
+              className="bg-black rounded-4xl text-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-all ease-in-out duration-300 cursor-pointer"
+              onClick={addNote}
+            >
+              Add Note
+            </button>
+          </div>
+
+          <ul className="flex flex-col gap-y-2 w-full ">
+            {table?.notes &&
+              table?.notes.map((note) => (
+                <li
+                  key={note.id}
+                  className="flex justify-between items-center bg-green-100 p-2 rounded-xl"
+                >
+                  <span>{note.content}</span>
+                  <button
+                    onClick={() => deleteNote(note.id)}
+                    className="text-sm  cursor-pointer "
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
