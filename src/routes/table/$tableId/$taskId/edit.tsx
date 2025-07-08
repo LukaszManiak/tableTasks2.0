@@ -75,11 +75,11 @@ function RouteComponent() {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" w-full xl:w-1/2 flex flex-col items-center gap-y-8 rounded-3xl "
+        className=" w-full xl:w-3/4 flex flex-col xl:items-start items-center gap-y-8 rounded-3xl "
       >
         <label className="text-3xl font-bold ">Title</label>
         <input
-          className="border-2 rounded-md p-4"
+          className="border-2 w-3/4  rounded-md p-4"
           {...register("title", {
             required: "Title is required",
             minLength: {
@@ -93,7 +93,7 @@ function RouteComponent() {
 
         <label className="text-3xl font-bold">Task Type</label>
         <div className="flex gap-x-6">
-          <label className="flex items-center gap-2 text-lg">
+          <label className="flex items-center w-3/4  gap-2 text-lg">
             <input
               type="radio"
               value="todo"
@@ -108,7 +108,7 @@ function RouteComponent() {
               type="radio"
               value="doing"
               {...register("type", { required: true })}
-              className="accent-green-500"
+              className="accent-green-500 w-3/4 "
             />
             Doing
           </label>
@@ -118,7 +118,7 @@ function RouteComponent() {
               type="radio"
               value="done"
               {...register("type", { required: true })}
-              className="accent-green-500"
+              className="accent-green-500 w-3/4 "
             />
             Done
           </label>
@@ -131,7 +131,7 @@ function RouteComponent() {
 
         <label className="text-3xl font-bold">Description</label>
         <input
-          className="border-2 rounded-md p-4"
+          className="border-2 rounded-md p-4 w-3/4 "
           {...register("description", {
             minLength: {
               value: 3,

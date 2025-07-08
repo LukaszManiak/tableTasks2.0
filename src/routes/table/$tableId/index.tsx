@@ -92,7 +92,7 @@ function RouteComponent() {
       <p>Created: {new Date(table?.timeCreate ?? "").toLocaleDateString()}</p>
 
       {/* tasks list */}
-      <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 justify-between  w-full ">
+      <div className="flex xl:flex-row flex-col items-start xl:items-center gap-x-24 gap-y-4 justify-between  w-full ">
         <div className="flex xl:flex-row flex-col items-start xl:items-center gap-y-4 w-3/5 justify-between">
           <ul className="flex flex-col gap-y-6">
             <p className="font-bold tracking-widest">TODO</p>

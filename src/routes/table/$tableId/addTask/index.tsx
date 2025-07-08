@@ -105,11 +105,11 @@ function RouteComponent() {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" w-full xl:w-1/2 flex flex-col gap-y-3  xl:items-start items-center rounded-3xl "
+        className=" w-full xl:w-3/4 flex flex-col gap-y-3  xl:items-start items-center rounded-3xl "
       >
         <label className="text-3xl font-bold ">Title</label>
         <input
-          className="border-2 rounded-md p-2"
+          className="border-2 w-3/4  rounded-md p-2"
           {...register("title", {
             required: "Title is required",
             minLength: {
@@ -123,7 +123,7 @@ function RouteComponent() {
 
         <label className="text-3xl font-bold ">Tags</label>
         <input
-          className="border-2 rounded-md p-2"
+          className="border-2 w-3/4  rounded-md p-2"
           {...register("tag", {
             minLength: {
               value: 3,
@@ -135,7 +135,7 @@ function RouteComponent() {
 
         <label className="text-3xl font-bold ">SubTasks</label>
         <input
-          className="border-2 rounded-md p-2"
+          className="border-2 w-3/4  rounded-md p-2"
           {...register("subtask", {
             minLength: {
               value: 3,
@@ -147,7 +147,7 @@ function RouteComponent() {
 
         <label className="text-3xl font-bold">Description</label>
         <input
-          className="border-2 rounded-md p-2"
+          className="border-2 w-3/4  rounded-md p-2"
           {...register("description", {
             minLength: {
               value: 3,
