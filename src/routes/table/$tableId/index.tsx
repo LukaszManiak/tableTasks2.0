@@ -4,9 +4,14 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
-import { Table, useTables, Note } from "../../../contexts/TableContext";
+import {
+  Table,
+  useTables,
+  Note as NoteType,
+} from "../../../contexts/TableContext";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Note from "../../../ui/Note";
 
 export const Route = createFileRoute("/table/$tableId/")({
   component: RouteComponent,
@@ -27,7 +32,7 @@ function RouteComponent() {
   function addNote() {
     if (!noteContent || !table) return;
 
-    const newNote: Note = { id: uuidv4(), content: noteContent };
+    const newNote: NoteType = { id: uuidv4(), content: noteContent };
 
     setTables((prevTables) =>
       prevTables.map((t) =>
@@ -144,7 +149,7 @@ function RouteComponent() {
         <div className="flex flex-col w-full xl:w-2/5 gap-y-4 ">
           <p className="text-xl font-semibold">Notes</p>
 
-          <div className="flex w-full gap-x-4 items-center">
+          <div className="flex flex-wrap w-full gap-x-4 items-center">
             <input
               className="border-2 border-green-300 p-2 rounded-2xl"
               type="text"
@@ -163,18 +168,7 @@ function RouteComponent() {
           <ul className="flex flex-col gap-y-2 w-full ">
             {table?.notes &&
               table?.notes.map((note) => (
-                <li
-                  key={note.id}
-                  className="flex justify-between items-center bg-green-100 p-2 rounded-xl"
-                >
-                  <span>{note.content}</span>
-                  <button
-                    onClick={() => deleteNote(note.id)}
-                    className="text-sm  cursor-pointer "
-                  >
-                    Delete
-                  </button>
-                </li>
+                <Note note={note} deleteNote={deleteNote} />
               ))}
           </ul>
         </div>
