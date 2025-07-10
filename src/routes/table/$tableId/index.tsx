@@ -8,6 +8,7 @@ import {
   Table,
   useTables,
   Note as NoteType,
+  TableId,
 } from "../../../contexts/TableContext";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +23,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   const { tables, setTables } = useTables();
-  const { tableId } = useParams({
+  const { tableId }: TableId = useParams({
     strict: true,
     from: "__root__",
   });

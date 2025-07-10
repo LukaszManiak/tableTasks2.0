@@ -11,6 +11,11 @@ export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
   component: RouteComponent,
 });
 
+type ParamsIds = {
+  tableId: string;
+  taskId: string;
+};
+
 type TaskInputs = {
   title: string;
   description: string;
@@ -21,7 +26,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   const { tables, setTables } = useTables();
-  const { tableId, taskId } = useParams({
+  const { tableId, taskId }: ParamsIds = useParams({
     strict: true,
     from: "__root__",
   });

@@ -19,7 +19,7 @@ function RouteComponent() {
   const {
     register,
     handleSubmit,
-    watch,
+
     reset,
     formState: { errors, isSubmitting },
   } = useForm<TableInputs>();

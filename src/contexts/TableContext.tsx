@@ -9,6 +9,7 @@ export type Table = {
   tasks: Task[];
   notes?: Note[];
 };
+export type TableId = { tableId: string };
 
 export type Task = {
   id: string;
@@ -16,8 +17,8 @@ export type Task = {
   timeCreate: string;
   title: string;
   description: string;
-  subTasks: SubTask[];
-  tags: string[];
+  // subTasks: SubTask[];
+  // tags: string[];
 };
 
 export type SubTask = {

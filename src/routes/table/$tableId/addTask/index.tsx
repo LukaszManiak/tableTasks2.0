@@ -9,10 +9,11 @@ import {
   Table,
   useTables,
   Task,
-  SubTask,
+  // SubTask,
+  TableId,
 } from "../../../../contexts/TableContext";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+// import { useState } from "react";
 
 export const Route = createFileRoute("/table/$tableId/addTask/")({
   component: RouteComponent,
@@ -36,7 +37,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   // const [subTasks, setSubTasks] = useState<SubTask[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
+  // const [tags, setTags] = useState<string[]>([]);
 
   // const handleSubTaskChange = (index: number, value: string) => {
   //   const updated = [...subTasks];
@@ -58,16 +59,16 @@ function RouteComponent() {
   //   setSubTasks(updated);
   // };
 
-  const addTag = () => {
-    setTags((prev) => [...prev, ""]);
-  };
+  // const addTag = () => {
+  //   setTags((prev) => [...prev, ""]);
+  // };
 
-  const removeTag = (index: number) => {
-    setTags((prev) => prev.filter((_, i) => i !== index));
-  };
+  // const removeTag = (index: number) => {
+  //   setTags((prev) => prev.filter((_, i) => i !== index));
+  // };
 
   const { tables, setTables } = useTables();
-  const { tableId } = useParams({
+  const { tableId }: TableId = useParams({
     strict: true,
     from: "__root__",
   });

@@ -5,7 +5,7 @@ import {
   useParams,
 } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Table, useTables } from "../../../contexts/TableContext";
+import { Table, TableId, useTables } from "../../../contexts/TableContext";
 
 export const Route = createFileRoute("/table/$tableId/edit")({
   component: RouteComponent,
@@ -22,14 +22,13 @@ function RouteComponent() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
 
     formState: { errors, isSubmitting },
   } = useForm<TableInputs>();
 
   const { tables, setTables } = useTables();
-  const { tableId } = useParams({
+  const { tableId }: TableId = useParams({
     strict: true,
     from: "__root__",
   });

@@ -1,6 +1,12 @@
 import { useState } from "react";
+import type { Note } from "../contexts/TableContext";
 
-export default function Note({ note, deleteNote }) {
+interface NoteProps {
+  note: Note;
+  deleteNote: (id: string) => void;
+}
+
+export default function Note({ note, deleteNote }: NoteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
