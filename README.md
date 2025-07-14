@@ -17,9 +17,7 @@ This project was created as a personal learning tool to solidify my understandin
 
 TableTasks was developed with a singular focus: to empower individuals in effectively managing their tasks and projects. As a feature-rich todo application, it goes beyond the basic functionalities, aiming to provide a comprehensive solution for organizing and tracking tasks.
 
-## Live Site URL:
-
-<!-- [Netlify](https://tabletasks.netlify.app/) -->
+## Live Site URL: [Netlify](https://tabletaskv2.netlify.app/)
 
 ## Table of contents
 
