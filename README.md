@@ -30,10 +30,6 @@ TableTasks was developed with a singular focus: to empower individuals in effect
 
 ## Overview
 
-### Links
-
-## Solution URL: [GitHub]("https://github.com/LukaszManiak/tableTasks2.0")
-
 ### The challenge
 
 As a user you should be able to:
