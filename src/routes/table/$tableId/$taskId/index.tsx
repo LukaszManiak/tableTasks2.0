@@ -5,6 +5,8 @@ import {
   useParams,
 } from "@tanstack/react-router";
 import { Table, Task, useTables } from "../../../../contexts/TableContext";
+import { Route as TableRoute } from "../index";
+import { Route as EditTaskRoute } from "./edit";
 
 export const Route = createFileRoute("/table/$tableId/$taskId/")({
   component: RouteComponent,
@@ -47,14 +49,16 @@ function RouteComponent() {
     <div className="flex flex-col gap-y-6 items-start">
       <div className="flex justify-between w-full items-center">
         <Link
-          to={`/table/${tableId}/`}
+          to={TableRoute.to}
+          params={{ tableId }}
           className="bg-green-300 rounded-full px-4 py-2 hover:bg-green-200 transition-all ease-in-out duration-200"
         >
           Go back
         </Link>
         <span className="flex items-center gap-x-4">
           <Link
-            to={`/table/${tableId}/${taskId}/edit`}
+            to={EditTaskRoute.to}
+            params={{ tableId, taskId }}
             className="bg-green-300 rounded-full px-4 py-2 hover:bg-green-200 transition-all ease-in-out duration-200"
           >
             Edit Task

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Table, Task, useTables } from "../../../../contexts/TableContext";
+import { Route as TaskRoute } from "./index";
 
 export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
   component: RouteComponent,
@@ -155,7 +156,7 @@ function RouteComponent() {
           >
             EDIT TASK
           </button>
-          <Link to={`/table/${tableId}/${taskId}/`}>
+          <Link to={TaskRoute.to} params={{ tableId, taskId }}>
             <button className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-4">
               CANCEL
             </button>

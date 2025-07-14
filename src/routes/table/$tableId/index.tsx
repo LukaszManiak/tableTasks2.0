@@ -13,6 +13,9 @@ import {
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Note from "../../../ui/Note";
+import { Route as TaskRoute } from "./$taskId/index";
+import { Route as AddTaskRoute } from "./addTask/index";
+import { Route as EditTableRoute } from "../../table/$tableId/edit";
 
 export const Route = createFileRoute("/table/$tableId/")({
   component: RouteComponent,
@@ -60,7 +63,7 @@ function RouteComponent() {
 
     setTables((prevTables) => prevTables.filter((t) => t.id !== table.id));
 
-    navigate({ to: "/table/" });
+    navigate({ to: "/table" });
   }
 
   return (
@@ -76,13 +79,15 @@ function RouteComponent() {
         <span className="flex items-center gap-x-2">
           <Link
             className="px-4 py-2 bg-green-200 rounded-4xl hover:bg-green-300 transition-all ease-in-out duration-200"
-            to={`/table/${tableId}/edit`}
+            to={EditTableRoute.to}
+            params={{ tableId }}
           >
             Edit Table
           </Link>
           <Link
             className="px-4 py-2 bg-green-300 rounded-4xl hover:bg-green-200 transition-all ease-in-out duration-200 "
-            to={`/table/${tableId}/addTask/`}
+            to={AddTaskRoute.to}
+            params={{ tableId }}
           >
             Add New Task
           </Link>
@@ -107,7 +112,8 @@ function RouteComponent() {
               .map((task) => (
                 <Link
                   className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                  to={`/table/${tableId}/${task.id}/`}
+                  to={TaskRoute.to}
+                  params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>
@@ -122,7 +128,8 @@ function RouteComponent() {
               .map((task) => (
                 <Link
                   className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                  to={`/table/${tableId}/${task.id}/`}
+                  to={TaskRoute.to}
+                  params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>
@@ -137,7 +144,8 @@ function RouteComponent() {
               .map((task) => (
                 <Link
                   className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
-                  to={`/table/${tableId}/${task.id}/`}
+                  to={TaskRoute.to}
+                  params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTables } from "../../contexts/TableContext";
+import { Route as TableRoute } from "./$tableId/index";
 
 export const Route = createFileRoute("/table/")({
   component: RouteComponent,
@@ -39,7 +40,8 @@ function RouteComponent() {
           tables.map((table) => (
             <Link
               key={table.id}
-              to={`/table/${table.id}/`}
+              to={TableRoute.to}
+              params={{ tableId: table.id }}
               className="p-4 flex flex-col gap-y-2 cursor-pointer rounded-md bg-green-50 hover:bg-green-100 transition-all ease-in-out duration-200 transform hover:-translate-y-1"
             >
               <span className="flex gap-x-2">
