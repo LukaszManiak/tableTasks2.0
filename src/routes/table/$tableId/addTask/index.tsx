@@ -9,11 +9,11 @@ import {
   Table,
   useTables,
   Task,
-  // SubTask,
+  SubTask,
   TableId,
 } from "../../../../contexts/TableContext";
 import { v4 as uuidv4 } from "uuid";
-// import { useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/table/$tableId/addTask/")({
   component: RouteComponent,
@@ -22,11 +22,12 @@ export const Route = createFileRoute("/table/$tableId/addTask/")({
 type TaskInputs = {
   title: string;
   description: string;
-  tag: string;
-  subtask: string;
 };
 
 function RouteComponent() {
+  const [tags, setTags] = useState<string[]>([]);
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -36,37 +37,6 @@ function RouteComponent() {
 
   const navigate = useNavigate();
 
-  // const [subTasks, setSubTasks] = useState<SubTask[]>([]);
-  // const [tags, setTags] = useState<string[]>([]);
-
-  // const handleSubTaskChange = (index: number, value: string) => {
-  //   const updated = [...subTasks];
-  //   updated[index] = value;
-  //   setSubTasks(updated);
-  // };
-
-  // const addSubTask = () => {
-  //   setSubTasks((prev) => [...prev, ""]);
-  // };
-
-  // const removeSubTask = (index: number) => {
-  //   setSubTasks((prev) => prev.filter((_, i) => i !== index));
-  // };
-
-  // const handleTagsChange = (index: number, value: string) => {
-  //   const updated = [...subTasks];
-  //   updated[index] = value;
-  //   setSubTasks(updated);
-  // };
-
-  // const addTag = () => {
-  //   setTags((prev) => [...prev, ""]);
-  // };
-
-  // const removeTag = (index: number) => {
-  //   setTags((prev) => prev.filter((_, i) => i !== index));
-  // };
-
   const { tables, setTables } = useTables();
   const { tableId }: TableId = useParams({
     strict: true,
@@ -74,6 +44,31 @@ function RouteComponent() {
   });
 
   const table: Table | undefined = tables.find((table) => table.id === tableId);
+
+  const addTag = () => setTags([...tags, ""]);
+
+  const updateTag = (index: number, value: string) => {
+    const updated = [...tags];
+    updated[index] = value;
+    setTags(updated);
+  };
+
+  const removeTag = (index: number) => {
+    setTags(tags.filter((_, i) => i !== index));
+  };
+
+  const addSubTask = () =>
+    setSubTasks([...subTasks, { description: "", isDone: false }]);
+
+  const updateSubTask = (index: number, value: string) => {
+    const updated = [...subTasks];
+    updated[index].description = value;
+    setSubTasks(updated);
+  };
+
+  const removeSubTask = (index: number) => {
+    setSubTasks(subTasks.filter((_, i) => i !== index));
+  };
 
   const onSubmit: SubmitHandler<TaskInputs> = (data) => {
     if (!table) return;
@@ -84,6 +79,8 @@ function RouteComponent() {
       description: data.description,
       timeCreate: new Date().toISOString(),
       type: "todo",
+      subTasks,
+      tags,
     };
 
     const updatedTable: Table = {
@@ -96,6 +93,8 @@ function RouteComponent() {
     );
 
     reset();
+    setTags([]);
+    setSubTasks([]);
     navigate({ to: `/table/${tableId}/` });
   };
 
@@ -122,29 +121,65 @@ function RouteComponent() {
         />
         {errors.title && <p>{errors.title.message}</p>}
 
-        <label className="text-3xl font-bold ">Tags</label>
-        <input
-          className="border-2 w-3/4  rounded-md p-2"
-          {...register("tag", {
-            minLength: {
-              value: 3,
-              message: "Tag needs to be at least 3 characters long",
-            },
-          })}
-          type="text"
-        />
+        <label className="text-3xl font-bold">Tags</label>
+        <div className="flex flex-col gap-2 w-3/4">
+          <ul className="flex flex-col gap-y-4">
+            {tags.map((tag, i) => (
+              <li key={i} className="flex gap-2">
+                <input
+                  className="border-2 rounded-md p-2 flex-grow"
+                  type="text"
+                  value={tag}
+                  onChange={(e) => updateTag(i, e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeTag(i)}
+                  className="text-white bg-green-500 hover:bg-green-400 transition-all ease-in-out duration-200 px-4 py-2 rounded-4xl font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={addTag}
+            className="text-lg text-green-500 hover:underline w-fit cursor-pointer"
+          >
+            + Add Tag
+          </button>
+        </div>
 
-        <label className="text-3xl font-bold ">SubTasks</label>
-        <input
-          className="border-2 w-3/4  rounded-md p-2"
-          {...register("subtask", {
-            minLength: {
-              value: 3,
-              message: "Subtask needs to be at least 3 characters long",
-            },
-          })}
-          type="text"
-        />
+        <label className="text-3xl font-bold">SubTasks</label>
+        <div className="flex flex-col gap-2 w-3/4">
+          <ul className="flex flex-col gap-y-4">
+            {subTasks.map((sub, i) => (
+              <div key={i} className="flex gap-2">
+                <input
+                  className="border-2 rounded-md p-2 flex-grow"
+                  type="text"
+                  value={sub.description}
+                  onChange={(e) => updateSubTask(i, e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeSubTask(i)}
+                  className="text-white bg-green-500 hover:bg-green-400 transition-all ease-in-out duration-200 px-4 py-2 rounded-4xl font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={addSubTask}
+            className="text-lg text-green-500 hover:underline w-fit cursor-pointer"
+          >
+            + Add Subtask
+          </button>
+        </div>
 
         <label className="text-3xl font-bold">Description</label>
         <input
@@ -163,7 +198,7 @@ function RouteComponent() {
           <button
             disabled={isSubmitting}
             type="submit"
-            className="bg-green-300 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-2"
+            className="bg-green-400 font-bold tracking-wider hover:bg-green-200 transition-all ease-in-out duration-200 cursor-pointer text-green-50 rounded-md p-2"
           >
             ADD TASK
           </button>

@@ -17,13 +17,13 @@ export type Task = {
   timeCreate: string;
   title: string;
   description: string;
-  // subTasks: SubTask[];
-  // tags: string[];
+  subTasks: SubTask[];
+  tags: string[];
 };
 
 export type SubTask = {
-  id: string;
   description: string;
+  isDone: boolean;
 };
 
 export type Note = {
