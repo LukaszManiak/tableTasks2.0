@@ -72,21 +72,23 @@ function RouteComponent() {
         </span>
       </div>
       <>
-        <span className="flex gap-4 items-center">
-          <h1 className="text-6xl font-bold mb-12">{task?.title}</h1>
+        <span className="flex gap-4 items-center ">
+          <h1 className="xl:text-6xl text-2xl font-bold mb-12">
+            {task?.title}
+          </h1>
           <p className="bg-green-300 rounded-full py-2 px-4">{task?.type}</p>
         </span>
-        <ul className="flex gap-x-3 items-center">
+        <ul className="flex gap-x-3  items-center">
           {task?.tags.map((tag) => (
-            <li className="bg-green-400 text-white px-4 py-2 rounded-4xl">
+            <li className="bg-green-400  text-white px-4 py-2 rounded-4xl">
               {tag}
             </li>
           ))}
         </ul>
         <p className="text-xl">{task?.description}</p>
-        <ul className="flex flex-col gap-y-3 items-center">
+        <ul className="flex flex-col gap-y-3 w-full xl:w-1/2 items-center">
           {task?.subTasks.map((subTask) => (
-            <li className="bg-green-400 flex items-center gap-x-4 text-white px-4 py-2 rounded-4xl">
+            <li className="bg-green-400 flex items-center w-full gap-x-4 text-white px-4 py-2 rounded-4xl">
               <input type="checkbox" /> <p>{subTask.description}</p>
             </li>
           ))}
