@@ -58,7 +58,10 @@ function RouteComponent() {
   };
 
   const addSubTask = () =>
-    setSubTasks([...subTasks, { description: "", isDone: false }]);
+    setSubTasks([
+      ...subTasks,
+      { description: "", isDone: false, id: uuidv4() },
+    ]);
 
   const updateSubTask = (index: number, value: string) => {
     const updated = [...subTasks];

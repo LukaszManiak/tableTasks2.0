@@ -111,12 +111,19 @@ function RouteComponent() {
               .filter((task) => task.type === "todo")
               .map((task) => (
                 <Link
-                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  className="p-4 flex flex-col gap-y-2 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
                   to={TaskRoute.to}
                   params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>
+                  <ul className="flex gap-x-2 items-center">
+                    {task.tags.map((tag, i) => (
+                      <li key={i} className="bg-white px-2 py-1 rounded-xl">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                   <p>{task.description.slice(0, 20)}...</p>
                 </Link>
               ))}
@@ -127,12 +134,19 @@ function RouteComponent() {
               .filter((task) => task.type === "doing")
               .map((task) => (
                 <Link
-                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  className="p-4 rounde-xl flex flex-col gap-y-2 bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
                   to={TaskRoute.to}
                   params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>
+                  <ul className="flex gap-x-2 items-center">
+                    {task.tags.map((tag, i) => (
+                      <li key={i} className="bg-white px-2 py-1 rounded-xl">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                   <p>{task.description.slice(0, 20)}...</p>
                 </Link>
               ))}
@@ -143,12 +157,19 @@ function RouteComponent() {
               .filter((task) => task.type === "done")
               .map((task) => (
                 <Link
-                  className="p-4 rounde-xl bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
+                  className="p-4 rounde-xl flex flex-col gap-y-2 bg-green-100 hover:bg-green-200 transition-all ease-in-out duration-200 hover:-translate-y-1"
                   to={TaskRoute.to}
                   params={{ tableId, taskId: task.id }}
                   key={task.id}
                 >
                   <p className="font-semibold">{task.title}</p>
+                  <ul className="flex gap-x-2 items-center">
+                    {task.tags.map((tag, i) => (
+                      <li key={i} className="bg-white px-2 py-1 rounded-xl">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                   <p>{task.description.slice(0, 20)}...</p>
                 </Link>
               ))}

@@ -22,6 +22,7 @@ export type Task = {
 };
 
 export type SubTask = {
+  id: string;
   description: string;
   isDone: boolean;
 };

@@ -45,6 +45,39 @@ function RouteComponent() {
     navigate({ to: `/table/${tableId}/` });
   }
 
+  function handleSubTaskStatusChange(id: string) {
+    if (!table || !task) return;
+
+    const updatedSubTasks = task.subTasks.map((subT) =>
+      subT.id === id ? { ...subT, isDone: !subT.isDone } : subT
+    );
+
+    const total = updatedSubTasks.length;
+    const doneCount = updatedSubTasks.filter((s) => s.isDone).length;
+
+    let newStatus: "todo" | "doing" | "done" = "todo";
+    if (doneCount === total) {
+      newStatus = "done";
+    } else if (doneCount > 0) {
+      newStatus = "doing";
+    }
+
+    const updatedTask: Task = {
+      ...task,
+      subTasks: updatedSubTasks,
+      type: newStatus,
+    };
+
+    const updatedTable: Table = {
+      ...table,
+      tasks: table.tasks.map((t) => (t.id === task.id ? updatedTask : t)),
+    };
+
+    setTables((prevTables) =>
+      prevTables.map((t) => (t.id === table.id ? updatedTable : t))
+    );
+  }
+
   return (
     <div className="flex flex-col gap-y-6 items-start">
       <div className="flex justify-between w-full items-center">
@@ -80,7 +113,10 @@ function RouteComponent() {
         </span>
         <ul className="flex gap-x-3  items-center">
           {task?.tags.map((tag) => (
-            <li className="bg-green-400  text-white px-4 py-2 rounded-4xl">
+            <li
+              key={tag}
+              className="bg-green-400  text-white px-4 py-2 rounded-4xl"
+            >
               {tag}
             </li>
           ))}
@@ -88,8 +124,16 @@ function RouteComponent() {
         <p className="text-xl">{task?.description}</p>
         <ul className="flex flex-col gap-y-3 w-full xl:w-1/2 items-center">
           {task?.subTasks.map((subTask) => (
-            <li className="bg-green-400 flex items-center w-full gap-x-4 text-white px-4 py-2 rounded-4xl">
-              <input type="checkbox" /> <p>{subTask.description}</p>
+            <li
+              key={subTask.id}
+              className="bg-green-400 flex items-center w-full gap-x-4 text-white px-4 py-2 rounded-4xl"
+            >
+              <input
+                onChange={() => handleSubTaskStatusChange(subTask.id)}
+                type="checkbox"
+                checked={subTask.isDone}
+              />
+              <p>{subTask.description}</p>
             </li>
           ))}
         </ul>

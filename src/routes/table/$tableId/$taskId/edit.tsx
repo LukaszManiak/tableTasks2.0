@@ -13,6 +13,7 @@ import {
 } from "../../../../contexts/TableContext";
 import { useEffect, useState } from "react";
 import { Route as TaskRoute } from "./index";
+import { v4 as uuidv4 } from "uuid";
 
 export const Route = createFileRoute("/table/$tableId/$taskId/edit")({
   component: RouteComponent,
@@ -30,6 +31,8 @@ type TaskInputs = {
 };
 
 function RouteComponent() {
+  const [tags, setTags] = useState<string[]>([]);
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
   const navigate = useNavigate();
   const { tables, setTables } = useTables();
   const { tableId, taskId }: ParamsIds = useParams({
@@ -41,16 +44,6 @@ function RouteComponent() {
   const task: Task | undefined = table?.tasks.find(
     (task) => task.id === taskId
   );
-
-  const [tags, setTags] = useState<string[]>([]);
-  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
-
-  useEffect(() => {
-    if (task) {
-      setTags(task.tags || []);
-      setSubTasks(task.subTasks || []);
-    }
-  }, [task]);
 
   const {
     register,
@@ -76,7 +69,10 @@ function RouteComponent() {
   };
 
   const addSubTask = () =>
-    setSubTasks([...subTasks, { description: "", isDone: false }]);
+    setSubTasks([
+      ...subTasks,
+      { description: "", isDone: false, id: uuidv4() },
+    ]);
 
   const updateSubTask = (index: number, value: string) => {
     const updated = [...subTasks];
@@ -112,6 +108,13 @@ function RouteComponent() {
     reset();
     navigate({ to: `/table/${tableId}/${taskId}/` });
   };
+
+  useEffect(() => {
+    if (task) {
+      setTags(task.tags || []);
+      setSubTasks(task.subTasks || []);
+    }
+  }, [task]);
 
   return (
     <div>
