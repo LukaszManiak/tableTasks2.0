@@ -14,7 +14,10 @@ function RouteComponent() {
       <div className="flex justify-between items-center w-full ">
         <h1 className="font-bold tracking-wider text-3xl">Tables</h1>
         {tables.length > 0 && (
-          <Link to="/table/addTable" className="bg-green-200 rounded-full p-2">
+          <Link
+            to="/table/addTable"
+            className="bg-green-200 rounded-full px-4 py-2 hover:bg-green-100 transition-all ease-in-out duration-200 "
+          >
             Add New Table
           </Link>
         )}

@@ -74,8 +74,6 @@ function RouteComponent() {
         />
         {errors.title && <p>{errors.title.message}</p>}
 
-        {/* TYPE */}
-
         <div className="flex  gap-4">
           <button
             disabled={isSubmitting}

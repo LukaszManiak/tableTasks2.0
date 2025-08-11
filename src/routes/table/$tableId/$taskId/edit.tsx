@@ -139,33 +139,13 @@ function RouteComponent() {
         />
         {errors.title && <p>{errors.title.message}</p>}
 
-        <label className="text-3xl font-bold">Task Type</label>
-        <div className="flex gap-x-6">
-          {["todo", "doing", "done"].map((status) => (
-            <label key={status} className="flex items-center gap-2 text-lg">
-              <input
-                type="radio"
-                value={status}
-                {...register("type", { required: true })}
-                className="accent-green-500"
-              />
-              {status.charAt(0).toUpperCase() + status.slice(1)}
-            </label>
-          ))}
-        </div>
-        {errors.type && (
-          <p className="text-green-500 text-sm mt-1">
-            Please select a task type.
-          </p>
-        )}
-
         <label className="text-3xl font-bold">Description</label>
         <input
-          className="border-2 rounded-md p-4 w-3/4"
+          className="border-2 rounded-md  p-4 w-3/4"
           {...register("description", {
             minLength: {
               value: 3,
-              message: "Description must be at least 3 characters",
+              message: "Description must be at least 3  characters",
             },
           })}
           type="text"
